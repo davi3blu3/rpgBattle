@@ -21,6 +21,7 @@ namespace rpgBattle
             {
                 // Hero Attacks
                 int heroDamage = randDamage.Next(0, 5);
+                Console.WriteLine();
 
                 // handle miss vs. strike
                 if (heroDamage == 0)
@@ -37,6 +38,27 @@ namespace rpgBattle
                 if (enemy.HitPoints <= 0)
                 {
                     Console.WriteLine("The " + enemy.Name + " has been defeated!");
+                    break;
+                }
+
+                // Enemy Attacks
+                int enemyDamage = randDamage.Next(0, 5);
+
+                // handle miss vs. strike
+                if (enemyDamage == 0)
+                {
+                    Console.WriteLine(enemy.Name + " swung at " + hero.Name + " and missed!");
+                }
+                else
+                {
+                    Console.WriteLine(enemy.Name + " attacks " + hero.Name + " for " + enemyDamage + " damage!");
+                    hero.HitPoints -= enemyDamage;
+                }
+
+                //check if hero is dead
+                if (hero.HitPoints <= 0)
+                {
+                    Console.WriteLine("Oh no! Our hero, " + hero.Name + " has been defeated! The kingdom is lost!");
                     break;
                 }
             }
