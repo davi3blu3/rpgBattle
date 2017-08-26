@@ -6,6 +6,12 @@ namespace rpgBattle
     {
         static void Main(string[] args)
         {
+            GenerateHero();
+            GenerateEnemy();
+        }
+
+        static void GenerateHero()
+        {
             // Create a new Hero
             Console.WriteLine("Create a new hero to save the kingdom!");
             Hero hero = new Hero();
@@ -19,11 +25,14 @@ namespace rpgBattle
             hero.Weapon = Console.ReadLine();
             
             // Set Hero's Hit Points
-            Random rand = new Random();
-            hero.HitPoints = rand.Next(12, 18);
+            Random randHero = new Random();
+            hero.HitPoints = randHero.Next(12, 18);
             
             hero.introduce();
+        }
 
+        static void GenerateEnemy()
+        {
             // possible enemy types
             string[] enemyType = new string[4]; 
             enemyType[0] = "Goblin";
@@ -40,6 +49,7 @@ namespace rpgBattle
 
             // Create enemy!!
             Enemy enemy = new Enemy();
+            Random rand = new Random();
             enemy.Name = enemyType[rand.Next(0, 3)];
             enemy.Weapon = weaponType[rand.Next(0, 3)];
             enemy.HitPoints = rand.Next(8, 15);
