@@ -24,23 +24,26 @@ namespace rpgBattle
             
             hero.introduce();
 
-            // Create enemy!!
+            // possible enemy types
             string[] enemyType = new string[4]; 
             enemyType[0] = "Goblin";
             enemyType[1] = "Skeleton";
             enemyType[2] = "Orc";
             enemyType[3] = "Imp";
 
+            // possible enemy weapons
             string[] weaponType = new string[4]; 
             weaponType[0] = "Short Sword";
             weaponType[1] = "Mace";
             weaponType[2] = "Hammer";
             weaponType[3] = "Dagger";
 
+            // Create enemy!!
             Enemy enemy = new Enemy();
             enemy.Name = enemyType[rand.Next(0, 3)];
             enemy.Weapon = weaponType[rand.Next(0, 3)];
-            enemy.HitPoints = rand.Next(8, 14);
+            enemy.HitPoints = rand.Next(8, 15);
+
             enemy.introduce();
         }
     }
