@@ -11,7 +11,8 @@ namespace rpgBattle
             hero.Name = Console.ReadLine();
             Console.WriteLine("Choose a Weapon - (Sword, Axe, or Mace)");
             hero.Weapon = Console.ReadLine();
-            hero.HitPoints = 12;
+            Random rand = new Random();
+            hero.HitPoints = rand.Next(12, 18);
             hero.introduce();
         }
     }
