@@ -6,16 +6,47 @@ namespace rpgBattle
     {
         static void Main(string[] args)
         {
-            GenerateHero();
-            GenerateEnemy();
+            Hero hero = new Hero();
+            GenerateHero(hero);
+
+            Enemy enemy = new Enemy();
+            GenerateEnemy(enemy);
+
+            Console.WriteLine("The battle begins, " + hero.Name + " versus the " + enemy.Name + "!");
+
+
+            // Battle loop while both warriors are alive
+            Random randDamage = new Random();
+            while (hero.HitPoints > 0 && enemy.HitPoints > 0)
+            {
+                // Hero Attacks
+                int heroDamage = randDamage.Next(0, 5);
+
+                // handle miss vs. strike
+                if (heroDamage == 0)
+                {
+                    Console.WriteLine(hero.Name + " swung at the " + enemy.Name + " and missed!");
+                }
+                else
+                {
+                    Console.WriteLine(hero.Name + " strikes the " + enemy.Name + " for " + heroDamage + " damage!");
+                    enemy.HitPoints -= heroDamage;
+                }
+
+                //check if enemy is dead
+                if (enemy.HitPoints <= 0)
+                {
+                    Console.WriteLine("The " + enemy.Name + " has been defeated!");
+                    break;
+                }
+            }
         }
 
-        static void GenerateHero()
+        static void GenerateHero(Hero hero)
         {
             // Create a new Hero
             Console.WriteLine("Create a new hero to save the kingdom!");
-            Hero hero = new Hero();
-
+            
             // Set Hero's Name
             Console.WriteLine("Choose a name:");
             hero.Name = Console.ReadLine();
@@ -31,7 +62,7 @@ namespace rpgBattle
             hero.introduce();
         }
 
-        static void GenerateEnemy()
+        static void GenerateEnemy(Enemy enemy)
         {
             // possible enemy types
             string[] enemyType = new string[4]; 
@@ -48,7 +79,7 @@ namespace rpgBattle
             weaponType[3] = "Dagger";
 
             // Create enemy!!
-            Enemy enemy = new Enemy();
+    
             Random rand = new Random();
             enemy.Name = enemyType[rand.Next(0, 3)];
             enemy.Weapon = weaponType[rand.Next(0, 3)];
