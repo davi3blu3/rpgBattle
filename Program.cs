@@ -77,52 +77,46 @@ namespace rpgBattle
             Console.WriteLine("The battle begins, " + hero.Name + " versus the " + enemy.Name + "!");
 
             // Battle loop while both warriors are alive
-            Random randDamage = new Random();
+            
             while (hero.HitPoints > 0 && enemy.HitPoints > 0)
             {
-                // Hero Attacks
-                int heroDamage = randDamage.Next(0, 5);
+                // blank space between cycles
                 Console.WriteLine();
-
-                // handle miss vs. strike
-                if (heroDamage == 0)
-                {
-                    Console.WriteLine(hero.Name + " swung at the " + enemy.Name + " and missed!");
-                }
-                else
-                {
-                    Console.WriteLine(hero.Name + " strikes the " + enemy.Name + " for " + heroDamage + " damage!");
-                    enemy.HitPoints -= heroDamage;
-                }
-
+                
+                A_Attacks_B(hero, enemy);
+                
                 //check if enemy is dead
                 if (enemy.HitPoints <= 0)
                 {
-                    Console.WriteLine("The " + enemy.Name + " has been defeated!");
+                    Console.WriteLine("The vile " + enemy.Name + " has been vanquished!");
                     break;
                 }
 
-                // Enemy Attacks
-                int enemyDamage = randDamage.Next(0, 5);
-
-                // handle miss vs. strike
-                if (enemyDamage == 0)
-                {
-                    Console.WriteLine(enemy.Name + " swung at " + hero.Name + " and missed!");
-                }
-                else
-                {
-                    Console.WriteLine(enemy.Name + " attacks " + hero.Name + " for " + enemyDamage + " damage!");
-                    hero.HitPoints -= enemyDamage;
-                }
+                A_Attacks_B(enemy, hero);
 
                 //check if hero is dead
-                if (hero.HitPoints <= 0)
+                if (enemy.HitPoints <= 0)
                 {
-                    Console.WriteLine("Oh no! Our hero, " + hero.Name + " has been defeated! The kingdom is lost!");
+                    Console.WriteLine("Oh no! " + hero.Name + " has suffered a fatal blow!");
+                    Console.WriteLine("** YOU HAVE DIED AND THE KINGDOM IS LOST! **");
                     break;
                 }
             }
+        }
+
+        static void A_Attacks_B(dynamic A, dynamic B)
+        {
+            // Calculate Attack Damage
+            Random randDamage = new Random();
+            int damage = randDamage.Next(0, 5);
+
+            // handle miss vs. strike
+            if (damage == 0) Console.WriteLine(A.Name + " swung at " + B.Name + " and missed!");
+            else
+            {
+                Console.WriteLine(A.Name + " attacks " + B.Name + " for " + damage + " damage!");
+                B.HitPoints -= damage;
+            }  
         }
     }
 }
