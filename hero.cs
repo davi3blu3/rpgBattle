@@ -9,4 +9,8 @@ public class Hero
     {
         Console.WriteLine("Our Hero " + Name + " carries a deadly " + Weapon + " and has " + HitPoints + " HP.");
     }
+    public bool isDead()
+    {
+        return HitPoints <= 0? true : false;
+    }
 }
