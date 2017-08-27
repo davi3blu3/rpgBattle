@@ -7,13 +7,74 @@ namespace rpgBattle
         static void Main(string[] args)
         {
             Hero hero = new Hero();
-            GenerateHero(hero);
+            SpawnHero(hero);
 
+            Console.WriteLine("Would you like to Do Battle? (Y/N)");
+            string response = Console.ReadLine();
+            if (response == "Y" || response == "y")
+            {
+                Battle(hero);
+            }
+            else
+            {
+                Console.WriteLine("Goodbye.");
+            }
+
+
+        }
+
+        static void SpawnHero(Hero hero)
+        {
+            // Create a new Hero
+            Console.WriteLine("** CREATE A NEW HERO TO SAVE THE KINGDOM! **");
+            
+            // Set Hero's Name
+            Console.WriteLine("Choose a name:");
+            hero.Name = Console.ReadLine();
+            
+            // Set Hero's Weapon
+            Console.WriteLine("Choose a Weapon: BroadSword, BattleAxe, Spear)");
+            hero.Weapon = Console.ReadLine();
+            
+            // Set Hero's Hit Points
+            Random randHero = new Random();
+            hero.HitPoints = randHero.Next(12, 18);
+            
+            hero.introduce();
+        }
+
+        static void SpawnEnemy(Enemy enemy)
+        {
+            // possible enemy types
+            string[] enemyType = new string[4]; 
+            enemyType[0] = "Goblin";
+            enemyType[1] = "Skeleton";
+            enemyType[2] = "Orc";
+            enemyType[3] = "Imp";
+
+            // possible enemy weapons
+            string[] weaponType = new string[4]; 
+            weaponType[0] = "Short Sword";
+            weaponType[1] = "Mace";
+            weaponType[2] = "Hammer";
+            weaponType[3] = "Dagger";
+
+            // Create enemy!!
+    
+            Random rand = new Random();
+            enemy.Name = enemyType[rand.Next(0, 3)];
+            enemy.Weapon = weaponType[rand.Next(0, 3)];
+            enemy.HitPoints = rand.Next(8, 15);
+
+            enemy.introduce();
+        }
+
+        static void Battle(Hero hero)
+        {
             Enemy enemy = new Enemy();
-            GenerateEnemy(enemy);
+            SpawnEnemy(enemy);
 
             Console.WriteLine("The battle begins, " + hero.Name + " versus the " + enemy.Name + "!");
-
 
             // Battle loop while both warriors are alive
             Random randDamage = new Random();
@@ -62,52 +123,6 @@ namespace rpgBattle
                     break;
                 }
             }
-        }
-
-        static void GenerateHero(Hero hero)
-        {
-            // Create a new Hero
-            Console.WriteLine("Create a new hero to save the kingdom!");
-            
-            // Set Hero's Name
-            Console.WriteLine("Choose a name:");
-            hero.Name = Console.ReadLine();
-            
-            // Set Hero's Weapon
-            Console.WriteLine("Choose a Weapon: BroadSword, BattleAxe, Spear)");
-            hero.Weapon = Console.ReadLine();
-            
-            // Set Hero's Hit Points
-            Random randHero = new Random();
-            hero.HitPoints = randHero.Next(12, 18);
-            
-            hero.introduce();
-        }
-
-        static void GenerateEnemy(Enemy enemy)
-        {
-            // possible enemy types
-            string[] enemyType = new string[4]; 
-            enemyType[0] = "Goblin";
-            enemyType[1] = "Skeleton";
-            enemyType[2] = "Orc";
-            enemyType[3] = "Imp";
-
-            // possible enemy weapons
-            string[] weaponType = new string[4]; 
-            weaponType[0] = "Short Sword";
-            weaponType[1] = "Mace";
-            weaponType[2] = "Hammer";
-            weaponType[3] = "Dagger";
-
-            // Create enemy!!
-    
-            Random rand = new Random();
-            enemy.Name = enemyType[rand.Next(0, 3)];
-            enemy.Weapon = weaponType[rand.Next(0, 3)];
-            enemy.HitPoints = rand.Next(8, 15);
-
-            enemy.introduce();
         }
     }
 }
